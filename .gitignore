@@ -8,9 +8,3 @@ venv/
 __pycache__/
 *.pyc
 *.pyo
-
-# Jupyter checkpoints
-.ipynb_checkpoints/
-
-# Large output videos (too large for git)
-results/output_heatmap.mp4
