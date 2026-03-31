@@ -1,4 +1,4 @@
-![Sentiment Analysis of Cephalopods](results/hero.png)
+
 
 # Sentiment Analysis of Cephalopods
 **GSoC 2026 Entry Task — Behavioral Analysis Pipeline**
@@ -91,6 +91,7 @@ Cephalopods often change color locally without altering their global appearance 
 
 ### 5.1 Temporal Feature Mapping
 ![Behavioral Analysis](results/feature_plots.png)
+![Behavioral Analysis](results/behavioral_analysis.mp4)
 
 The analysis reveals distinct behavioral phases where movement occurs without corresponding global appearance shifts, suggesting localized camouflage or adjustments.
 
