@@ -1,6 +1,4 @@
-
-
-# Sentiment Analysis of Cephalopods
+#  Sentiment Analysis of Cephalopods
 **GSoC 2026 Entry Task — Behavioral Analysis Pipeline**
 
 This repository provides a specialized pipeline for the automated and interpretable analysis of cephalopod behavior from video data. By leveraging computer vision techniques such as optical flow and color-space histogram analysis, the system extracts high-fidelity behavioral signals that serve as proxies for biological states like crypsis, stress, and locomotion.
@@ -8,15 +6,13 @@ This repository provides a specialized pipeline for the automated and interpreta
 ---
 
 ## Table of Contents
-1. [System Overview](#system-overview)
-2. [Architecture & Methodology](#architecture--methodology)
-   - [Motion Magnitude (Optical Flow)](#motion-magnitude-optical-flow)
-   - [Global Appearance Stability (HSV)](#global-appearance-stability-hsv)
-3. [Project Structure](#project-structure)
-4. [Installation & Usage](#installation--usage)
-5. [Behavioral Analysis Results](#behavioral-analysis-results)
-6. [Research Reasoning](#research-reasoning)
-7. [Future Roadmap](#future-roadmap)
+1. [System Overview](#1-system-overview)
+2. [Architecture & Methodology](#2-architecture--methodology)
+3. [Project Structure](#3-project-structure)
+4. [Installation & Usage](#4-installation--usage)
+5. [Behavioral Analysis Results](#5-behavioral-analysis-results)
+6. [Research Reasoning](#6-research-reasoning)
+7. [Future Roadmap](#7-future-roadmap)
 
 ---
 
@@ -28,6 +24,11 @@ The pipeline transforms raw underwater video sequences into structured behaviora
 - **Visual Validation**: Generation of motion heatmaps for spatial localization.
 - **Rule-Based Mapping**: Categorization of extracted signals into interpretable behavioral states.
 
+### Key Upgrades (v2.0)
+- **Side-by-Side Synthesis**: Visual comparison of raw footage vs. motion heatmaps.
+- **Activity Timeline Overlay**: Real-time temporal segmentation bar.
+- **Key Moment Extraction**: Automatic capture of peak behavioral shifts.
+
 ---
 
 ## 2. Architecture & Methodology
@@ -35,10 +36,10 @@ The pipeline transforms raw underwater video sequences into structured behaviora
 The system is designed for modularity and scientific interpretability.
 
 ### 2.1 Motion Magnitude (Optical Flow)
-Using the **Farneback Dense Optical Flow** algorithm, we calculate the displacement of pixels between consecutive frames. The mean magnitude across the frame provides a robust metric for physical activity, identifying bursts of movement or subtle adjustments.
+Using the **Farneback Dense Optical Flow** algorithm, we calculate the displacement of pixels between consecutive frames.
 
 ### 2.2 Global Appearance Stability (HSV Histograms)
-Cephalopods often change color locally without altering their global appearance significantly during camouflage. We compute 2D Hue/Saturation histograms to monitor the consistency of the animal's visual profile over time.
+Cephalopods often change color locally without altering their global appearance significantly during camouflage. We compute 2D Hue/Saturation histograms to monitor consistency.
 
 | Feature Layer | Method | Targeted Behavior |
 | --- | --- | --- |
@@ -46,25 +47,36 @@ Cephalopods often change color locally without altering their global appearance 
 | **Color Stability** | HSV Histogram Correlation | Camouflage Persistence, Skin Texture |
 | **Phasal Analysis** | Smoothing & Thresholding | Activity Duration, Behavioral Shifts |
 
+### 2.3 Pipeline Logic
+```mermaid
+graph TD
+    A[Raw Video .mp4] --> B(Data Loader)
+    B --> C{Feature Extraction}
+    C --> D[Motion Magnitude]
+    C --> E[Color Stability]
+    D --> F(Behavioral Features)
+    E --> F
+    F --> G[Sentiment Classifier]
+    G --> H{Classification Result}
+    H --> I[Activity Timeline]
+    H --> J[Key Moments]
+```
+
 ---
 
 ## 3. Project Structure
 
 | File / Directory | Description |
 | --- | --- |
-| `analyze_behavior.ipynb` | Core analysis notebook with feature extraction and visualization. |
-| `src/` | Modular Python scripts for data loading and preprocessing. |
+| `main.py` | Command-line entry point for full pipeline execution. |
+| `analyze_behavior.ipynb` | Analysis notebook with feature extraction. |
+| `src/` | Modular Python scripts (Preprocessor, Classifier, Visualizer). |
 | `data/` | Directory for input video files. |
 | `results/` | Generated plots, heatmaps, and analysis videos. |
-| `requirements.txt` | Project dependencies. |
 
 ---
 
 ## 4. Installation & Usage
-
-### Prerequisites
-- Python 3.9+
-- Conda or virtualenv (recommended)
 
 ### Setup
 1. **Clone the repository:**
@@ -72,30 +84,37 @@ Cephalopods often change color locally without altering their global appearance 
    git clone https://github.com/your-username/Sentiment-Analysis-of-Cephalopods.git
    cd Sentiment-Analysis-of-Cephalopods
    ```
-
 2. **Install dependencies:**
    ```bash
-   pip install -r requirements.txt
+   pip install -r requirements.txt  # Requires OpenCV, NumPy, tqdm, Matplotlib
    ```
 
-### Execution
-1. **Prepare Data**: Place your input video in the `data/` folder (default: `data/video_fixed.mp4`).
-2. **Run Analysis**: Open and run all cells in `analyze_behavior.ipynb`.
-3. **Review Results**: Outputs are saved in the `results/` folder, including:
-   - `feature_plots.png`: Detailed time-series analysis.
-   - `output_heatmap.mp4`: Motion intensity overlay video.
+### Execution (CLI)
+Run the full pipeline with a single command:
+```bash
+python main.py --video data/video_fixed.mp4
+```
 
 ---
 
 ## 5. Behavioral Analysis Results
 
-### 5.1 Temporal Feature Mapping
-![Behavioral Analysis](results/feature_plots.png)
-[▶ View Motion Heatmap Video](results/output_heatmap.mp4)
-The analysis reveals distinct behavioral phases where movement occurs without corresponding global appearance shifts, suggesting localized camouflage or adjustments.
+### 5.1 Side-by-Side Analysis
+The pipeline generates a synchronized visualization showing the original behavior alongside the motion-intensity heatmap and activity timeline.
 
-### 5.2 Spatial Localization
-The system generates a motion-intensity heatmap to validate the spatial distribution of detected movement, ensuring that the signals correspond accurately to the specimen's activity.
+[▶ View Side-by-Side Analysis Video](results/side_by_side_analysis.mp4)
+
+### 5.2 Analytical Proof (Quantified Behavior)
+| Feature Time-Series (Motion vs. Color) | Behavioral State Distribution |
+| :---: | :---: |
+| ![Feature Plots](results/feature_plots.png) | ![Sentiment Distribution](results/sentiment_distribution.png) |
+
+### 5.3 Key Behavioral Moments
+The system automatically extracts frames where significant motion spikes occur.
+
+| Peak 1 | Peak 2 | Peak 3 |
+| :---: | :---: | :---: |
+| ![Moment 1](results/moments/moment_peak_1_frame_259.png) | ![Moment 2](results/moments/moment_peak_2_frame_268.png) | ![Moment 3](results/moments/moment_peak_3_frame_740.png) |
 
 ---
 
@@ -104,7 +123,7 @@ The system generates a motion-intensity heatmap to validate the spatial distribu
 This pipeline implements a hypothesis-driven approach:
 - **Interpretability**: Prioritizing visual signals that can be verified by biologists.
 - **Cross-Feature Decoupling**: Analyzing how motion and color act independently.
-- **Failure Analysis**: Identifying specific conditions where global metrics may fail (e.g., perfect crypsis).
+- **Failure Analysis**: Identifying specific conditions where global metrics may fail.
 
 ---
 
@@ -112,5 +131,5 @@ This pipeline implements a hypothesis-driven approach:
 
 Future iterations of this system aim to integrate:
 - **Pose Estimation**: Tracking individual limb movements.
-- **Texture Tracking**: Localized Gabor filter analysis for complex camouflage.
-- **Deep Learning integration**: Moving from rule-based to supervised classification using labeled behavioral datasets.
+- **Texture Tracking**: Localized Gabor filter analysis.
+- **Deep Learning**: Moving to supervised classification.

@@ -215,7 +215,7 @@ class BatchIngestor:
         os.makedirs(os.path.dirname(output_path) or ".", exist_ok=True)
         with open(output_path, "w") as f:
             json.dump(manifest, f, indent=2)
-        print(f"✅ Manifest saved: {output_path}")
+        print(f"Manifest saved: {output_path}")
 
     def __repr__(self) -> str:
         return (
@@ -237,7 +237,7 @@ if __name__ == "__main__":
             print(f"  {m.filename}: {m.width}x{m.height}, "
                   f"{m.fps}fps, {m.duration_seconds}s")
         if ingestor.errors:
-            print(f"\n⚠️  {len(ingestor.errors)} errors:")
+            print(f"\n{len(ingestor.errors)} errors:")
             for e in ingestor.errors:
                 print(f"  {e}")
         ingestor.save_manifest("data/manifest.json")

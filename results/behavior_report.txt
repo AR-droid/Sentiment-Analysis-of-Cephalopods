@@ -1,0 +1,50 @@
+============================================================
+  CEPHALOPOD BEHAVIORAL SENTIMENT REPORT
+============================================================
+
+  Dominant State: CALM
+  (Low activity — resting or settled state)
+
+  ── Sentiment Distribution ──
+    calm         █████████████░░░░░░░  66.4%
+    camouflaged  ███░░░░░░░░░░░░░░░░░  18.6%
+    active       ███░░░░░░░░░░░░░░░░░  15.0%
+    reactive     ░░░░░░░░░░░░░░░░░░░░   0.0%
+
+  ── Behavioral Phases (28 detected) ──
+    Phase 1: calm           0.2s →   0.5s (0.3s)
+    Phase 2: calm           0.6s →   1.0s (0.5s)
+    Phase 3: calm           1.2s →   1.5s (0.3s)
+    Phase 4: calm           3.5s →   3.9s (0.4s)
+    Phase 5: calm           4.5s →   5.0s (0.5s)
+    Phase 6: calm           5.1s →   5.4s (0.4s)
+    Phase 7: calm           5.7s →   6.0s (0.3s)
+    Phase 8: calm           6.6s →   7.0s (0.5s)
+    Phase 9: calm           7.1s →   7.5s (0.4s)
+    Phase 10: active         8.5s →   9.0s (0.5s)
+    Phase 11: active         9.1s →   9.5s (0.4s)
+    Phase 12: active         9.6s →  10.0s (0.5s)
+    Phase 13: active        10.1s →  10.4s (0.4s)
+    Phase 14: calm          11.1s →  11.5s (0.4s)
+    Phase 15: calm          12.1s →  12.5s (0.4s)
+    Phase 16: calm          15.9s →  16.3s (0.4s)
+    Phase 17: calm          17.2s →  17.5s (0.3s)
+    Phase 18: calm          17.6s →  18.5s (1.0s)
+    Phase 19: calm          19.1s →  19.4s (0.3s)
+    Phase 20: calm          19.6s →  19.9s (0.4s)
+    Phase 21: calm          20.6s →  21.0s (0.4s)
+    Phase 22: calm          21.0s →  21.5s (0.5s)
+    Phase 23: calm          21.6s →  21.9s (0.3s)
+    Phase 24: calm          21.9s →  22.4s (0.5s)
+    Phase 25: calm          22.6s →  23.0s (0.5s)
+    Phase 26: calm          23.1s →  23.4s (0.4s)
+    Phase 27: calm          23.6s →  24.1s (0.5s)
+    Phase 28: active        24.1s →  24.5s (0.4s)
+
+  ── Thresholds Used ──
+    motion_low: 1.5663
+    motion_high: 5.773
+    color_stability: 0.995
+    spike_factor: 2.5
+
+============================================================

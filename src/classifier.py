@@ -38,6 +38,17 @@ class SentimentLabel(str, Enum):
     CAMOUFLAGED = "camouflaged"
 
     @property
+    def color(self) -> Tuple[int, int, int]:
+        """BGR color for each sentiment."""
+        _colors = {
+            "calm": (255, 150, 50),       # Soft Blue
+            "active": (50, 50, 255),      # Bright Red
+            "reactive": (0, 0, 180),      # Dark Red
+            "camouflaged": (200, 180, 0)  # Teal/Cyan
+        }
+        return _colors[self.value]
+
+    @property
     def description(self) -> str:
         _descriptions = {
             "calm": "Low activity — resting or settled state",
@@ -354,11 +365,11 @@ if __name__ == "__main__":
 
     video_path = sys.argv[1] if len(sys.argv) > 1 else "data/video_fixed.mp4"
     loader = VideoLoader(video_path)
-    print(f"📹 Loaded: {loader}")
+    print(f"Loaded: {loader}")
     print()
 
     # ── Extract features (same approach as the notebook) ──
-    print("⏳ Extracting features...")
+    print("Extracting features...")
 
     motion_magnitudes = []
     color_changes = []
